@@ -1,15 +1,14 @@
 {
-  "name": "frontendboilerplate",
+  "name": "LaserDream",
   "version": "0.0.1",
   "description": "",
   "author": {
-    "name": "Vahe Hovhannisyan",
-    "email": "vhpoet@gmail.com",
-    "url": "http://vahehovhannisyan.com"
+    "name": "Matthew Stone",
+    "email": "matthew.d.stone@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/vhpoet/frontend-boilerplate.git"
+    "url": "git://github.com/robot-head/LaserDream.git"
   },
   "node-remote": "http://localhost:3000",
   "main": "http://localhost:3000",
