@@ -1,0 +1,3 @@
+[submodule "node-etherdream"]
+	path = node-etherdream
+	url = https://github.com/possan/node-etherdream.git
