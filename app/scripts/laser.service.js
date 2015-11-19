@@ -9,12 +9,14 @@ function EtherDreamService($scope, $interval) {
   var etherdream = require('node-etherdream');
   var service = {
     'etherdream': etherdream,
-    'lasers': []
+    'lasers': {}
   };
   $interval(findLasers, 10000);
   var findLasers = function() {
     etherdream.find(function (lasers) {
-      service.lasers = lasers;
+      angular.forEach(lasers, function(value, key) {
+        this[value.name] = value;
+      }, service.lasers);
       $scope.$apply();
     })
   };

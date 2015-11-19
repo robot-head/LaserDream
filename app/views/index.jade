@@ -28,21 +28,15 @@ html(ng-app='app', ng-controller='AppController')
     link(rel='shortcut icon', href='images/favicon.ico', type='image/x-icon')
     link(rel='icon', href='images/favicon.ico', type='image/x-icon')
   body
-    header
-
     .container
       .page-header
-        h1 Laser Demo
         .menu
           a(ui-sref="main") Home
           a(ui-sref="lasers") Lasers
           a(ui-sref="about") About
+          button.btn-danger Emergency Stop
 
       div(ui-view="guest")
-
-    footer
-      .container
-        p.text-muted Made with love.
 
     <!-- build:js(.tmp) scripts/vendor.js -->
     <!-- inject:js -->

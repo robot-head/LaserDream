@@ -2,7 +2,8 @@
 
 var appDependencies = [
   'ng',
-  'ui.router'
+  'ui.router',
+  'ui.bootstrap'
 ];
 
 angular

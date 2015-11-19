@@ -50,9 +50,12 @@
   },
   "dependencies": {
     "angular": "^1.4.4",
+    "angular-ui-bootstrap": "^0.14.3",
     "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.5",
     "jquery": "^2.1.4",
-    "node-etherdream": "^0.0.2"
+    "node-etherdream": "^0.0.2",
+    "phaser": "^2.4.4",
+    "pixi.js": "^3.0.8"
   }
 }
