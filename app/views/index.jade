@@ -1,14 +1,14 @@
 html(ng-app='app', ng-controller='AppController')
   head
     meta(charset='utf-8')
-    title frontendboilerplate
+    title LaserDream
     meta(name='description', content='')
     meta(property='og:description', content='')
 
     meta(name='apple-mobile-web-app-capable', content='yes')
-    meta(name='apple-mobile-web-app-title', content='frontendboilerplate')
+    meta(name='apple-mobile-web-app-title', content='LaserDream')
     meta(name='mobile-web-app-capable', content='yes')
-    meta(name='mobile-web-app-title', content='frontendboilerplate')
+    meta(name='mobile-web-app-title', content='LaserDream')
 
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
 
@@ -32,9 +32,10 @@ html(ng-app='app', ng-controller='AppController')
 
     .container
       .page-header
-        h1 Frontend Boilerplate
+        h1 Laser Demo
         .menu
           a(ui-sref="main") Home
+          a(ui-sref="lasers") Lasers
           a(ui-sref="about") About
 
       div(ui-view="guest")

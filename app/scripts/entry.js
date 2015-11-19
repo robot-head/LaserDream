@@ -10,8 +10,11 @@ angular
   .config(appConfig)
   .constant('config', require('../../config.json'));
 
+require('./laser.service');
 require('./app.controller');
 require('./about.controller');
+require('./lasers.controller');
+
 
 appConfig.$inject = ['$stateProvider', '$urlRouterProvider'];
 
@@ -24,6 +27,10 @@ function appConfig ($stateProvider, $urlRouterProvider) {
     {
       name: 'about',
       path: 'about'
+    },
+    {
+      name: 'lasers',
+      path: 'lasers'
     }
   ];
 

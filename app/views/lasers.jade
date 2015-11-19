@@ -1,0 +1,15 @@
+div(ng-controller="LaserController")
+  table.table.table-bordered
+    thead
+      td IP Address
+      td Port
+      td Name
+      td HW Rev
+      td SW Rev
+    tr(ng-repeat="laser in lasers track by $index")
+      td {{laser.ip}}
+      td {{laser.port}}
+      td {{laser.name}}
+      td {{laser.hw_revision}}
+      td {{laser.sw_revision}}
+
