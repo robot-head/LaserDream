@@ -1,13 +1,22 @@
-p.lead Laser test
-.dropdown
-  button.btn.btn-default.dropdown-toggle(type="button", id="laserselector" data-toggle="dropdown" aria-haspopup="true")
-    |{{selectedLaser.name || 'Select a Laser'}}
-    span.caret
-  ul.dropdown-menu(aria-labelledby="laserselector")
-    li(ng-repeat="laser in lasers track by $index")
-      a(href='#', ng-click="setLaser(laser)") {{laser.name}}
-br
-button.btn-warning(ng-class="{disabled: selectedLaser}") Start output
-button.btn-danger Stop output
-br
-canvas(pixi="stage", pixi-render="pixiRender" pixi-renderer="'webgl'")
+div(ng-controller="MainController")
+  p.lead Laser test
+  .dropdown
+    button.btn.btn-default.dropdown-toggle(type="button", id="laserselector" data-toggle="dropdown" aria-haspopup="true")
+      | {{selectedLaser.name || 'Select a Laser'}}
+      span.caret
+    ul.dropdown-menu(aria-labelledby="laserselector")
+      li(ng-repeat="laser in lasers track by $index")
+        a(href='#', ng-click="setLaser(laser)") {{laser.name}}
+  br
+  button.btn-warning(ng-class="{disabled: selectedLaser}", ng-click="startLaserDemo()") Play demo
+  button.btn-danger(ng-click="stopLaserDemo()") Stop output
+  br
+  h2 Calibration
+  #laserDemo
+  br
+  button.btn-warning(ng-class="{disabled: selectedLaser}", ng-click="startCalibration()") Start Calibration
+  button.btn-danger(ng-click="stopCalibration()") Stop output
+
+
+  script(src='./scripts/phaser.js')
+

@@ -13,6 +13,7 @@ angular
 
 require('./laser.service');
 require('./app.controller');
+require('./main.controller');
 require('./about.controller');
 require('./lasers.controller');
 
