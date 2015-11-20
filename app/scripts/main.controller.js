@@ -68,14 +68,36 @@ function MainController($scope, etherdream) {
   };
 
   var game = new Phaser.Game(800, 600, Phaser.AUTO, 'laserDemo', {preload: preload, create: create, update: update});
+  var bounds;
+  var targetTL, targetTR, targetBR, targetBL;
 
   function preload() {
-
+    game.load.image('target', 'images/target.png');
   }
 
   function create() {
     var calibrationGroup = game.add.group();
     $scope.calibrationGroup = calibrationGroup;
+    bounds = new Phaser.Rectangle(10, 10, game.width - 20, game.height - 20);
+    targetTL = game.add.sprite(10, 10, 'target')
+
+    var targetWidth = targetTL.width;
+    var targetHeight = targetTL.height;
+    targetTR = game.add.sprite(game.width - 10 - targetWidth, 10, 'target');
+
+    targetBR = game.add.sprite(game.width - 10 - targetWidth, game.height - 10 - targetHeight, 'target');
+    targetBL = game.add.sprite(10, game.height - 10 - targetHeight, 'target');
+    targetTL.resizeCorner = 'TL';
+    targetTR.resizeCorner = 'TR';
+    targetBR.resizeCorner = 'BR';
+    targetBL.resizeCorner = 'BL';
+    [targetTL, targetTR, targetBR, targetBL].forEach(function(target) {
+      target.inputEnabled = true;
+      //target.anchor.set(0.5);
+      target.input.enableDrag();
+      target.input.boundsRect = bounds;
+      target.events.onDragUpdate.add(targetDragUpdate);
+    });
     var graphics = game.add.graphics(0, 0, calibrationGroup);
     var bottomRightX = game.width - 10;
     var bottomRightY = game.height - 10;
@@ -85,13 +107,51 @@ function MainController($scope, etherdream) {
     graphics.lineTo(bottomRightX, bottomRightY);
     graphics.moveTo(game.width - 10, 10);
     graphics.lineTo(10, game.height - 10);
-    console.log(calibrationGroup);
-    //var boundingRect = new Phaser.Rectangle(10, 10, game.width - 10, game.height - 10);
-
   }
 
   function update() {
 
+  }
+
+  function targetDragUpdate(sprite, pointer, dragX, dragY, snapPoint) {
+    if (sprite.resizeCorner == 'TL') {
+      targetTR.y = sprite.y;
+      targetBL.x = sprite.x;
+      var w = Math.abs((sprite.x - targetTR.x)/(game.width-40));
+      var h = Math.abs((sprite.y - targetBL.y)/(game.height-40));
+      $scope.calibrationGroup.x = sprite.x;
+      $scope.calibrationGroup.y = sprite.y;
+      $scope.calibrationGroup.width = w;
+      $scope.calibrationGroup.height = h;
+    }
+    if (sprite.resizeCorner == 'TR') {
+      targetTL.y = sprite.y;
+      targetBR.x = sprite.x;
+      var w = Math.abs((sprite.x - targetTL.x)/(game.width-40));
+      var h = Math.abs((sprite.y - targetBR.y)/(game.height-40));
+      $scope.calibrationGroup.y = sprite.y;
+      $scope.calibrationGroup.width = w;
+      $scope.calibrationGroup.height = h;
+
+    }
+    if (sprite.resizeCorner == 'BL') {
+      targetBR.y = sprite.y;
+      targetTL.x = sprite.x;
+      var w = Math.abs((sprite.x - targetBR.x)/(game.width-40));
+      var h = Math.abs((sprite.y - targetTR.y)/(game.height-40));
+      $scope.calibrationGroup.x = sprite.x;
+
+      $scope.calibrationGroup.width = w;
+      $scope.calibrationGroup.height = h;
+    }
+    if (sprite.resizeCorner == 'BR') {
+      var w = Math.abs((sprite.x - targetBL.x)/(game.width-40));
+      var h = Math.abs((sprite.y - targetTR.y)/(game.height-40));
+      $scope.calibrationGroup.width = w;
+      $scope.calibrationGroup.height = h;
+      targetBL.y = sprite.y;
+      targetTR.x = sprite.x;
+    }
   }
 
   $scope.startCalibration = function () {
@@ -105,7 +165,7 @@ function MainController($scope, etherdream) {
   };
 
   var i16 = function (min, max, val) {
-    return -32767.5 + (val / (max - min)) * 65535;
+    return 32767.5 + (val / (max - min)) * -65535;
   };
 
   var ui16 = function (min, max, val) {
@@ -189,6 +249,11 @@ function MainController($scope, etherdream) {
         return ui16(0, 255, cval);
       };
 
+      var gp = function(point) {
+        var pt = $scope.calibrationGroup.toGlobal(point);
+        return pt;
+      };
+
       gfx.graphicsData.forEach(function (element, index) {
         //console.log(element);
         var color = Phaser.Color.getRGB(element.lineColor);
@@ -200,31 +265,33 @@ function MainController($scope, etherdream) {
         if (shape instanceof Phaser.Rectangle) {
           drawline(
             framedata,
-            xScaled(shape.topLeft.x), yScaled(shape.topLeft.y),
-            xScaled(shape.topRight.x), yScaled(shape.topRight.y),
+            xScaled(gp(shape.topLeft).x), yScaled(gp(shape.topLeft).y),
+            xScaled(gp(shape.topRight).x), yScaled(gp(shape.topRight).y),
             r, g, b);
           drawline(
             framedata,
-            xScaled(shape.topRight.x), yScaled(shape.topRight.y),
-            xScaled(shape.bottomRight.x), yScaled(shape.bottomRight.y),
+            xScaled(gp(shape.topRight).x), yScaled(gp(shape.topRight).y),
+            xScaled(gp(shape.bottomRight).x), yScaled(gp(shape.bottomRight).y),
             r, g, b);
           drawline(
             framedata,
-            xScaled(shape.bottomRight.x), yScaled(shape.bottomRight.y),
-            xScaled(shape.bottomLeft.x), yScaled(shape.bottomLeft.y),
+            xScaled(gp(shape.bottomRight).x), yScaled(gp(shape.bottomRight).y),
+            xScaled(gp(shape.bottomLeft).x), yScaled(gp(shape.bottomLeft).y),
             r, g, b);
           drawline(
             framedata,
-            xScaled(shape.bottomLeft.x), yScaled(shape.bottomLeft.y),
-            xScaled(shape.topLeft.x), yScaled(shape.topLeft.y),
+            xScaled(gp(shape.bottomLeft).x), yScaled(gp(shape.bottomLeft).y),
+            xScaled(gp(shape.topLeft).x), yScaled(gp(shape.topLeft).y),
             r, g, b);
         }
         if (shape instanceof Phaser.Polygon) {
           var pts = shape.points;
+          var pt1 = gp(new Phaser.Point(shape.points[0], shape.points[1]));
+          var pt2 = gp(new Phaser.Point(shape.points[2], shape.points[3]));
           drawline(
             framedata,
-            xScaled(pts[0]), yScaled(pts[1]),
-            xScaled(pts[2]), yScaled(pts[3]),
+            xScaled(pt1.x), yScaled(pt1.y),
+            xScaled(pt2.x), yScaled(pt2.y),
             r, g, b);
         }
       });
