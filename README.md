@@ -1,17 +1,23 @@
-### [nw.js](https://github.com/nwjs/nw.js/) version of the [frontend-boilerplate](https://github.com/vhpoet/frontend-boilerplate)
+### LaserDream
 
-No fancy generators, just clone this repo and build your app on top of it.
+This is very much a work under development.
+The goal of this project is to create a cross-platform desktop GUI for music-reactive live laser performances.
+Eventual feature goals:
+- Interactive pattern designer for beamshows and target-zone effects
+- BPM auto-detection from line-in or microphone
+- Beat-based pattern generators
+- MIDI/OSC mapping for control surfaces
+- Live 3D preview of stage
+- Multiple laser support
 
 ### Package
 
-- Uses nw.js, AngularJS, Gulp, Jade, Sass (with sourcemaps), browserSync. 
+- Uses nw.js, AngularJS, Gulp, Jade, Sass (with sourcemaps), browserSync, and Phaser
 - Respects [angularjs-styleguide](https://github.com/johnpapa/angularjs-styleguide).
 
 ### Setup
 
 - Setup [nw.js](https://github.com/nwjs/nw.js/).
-- `$ git clone https://github.com/vhpoet/nwjs-boilerplate`
-- Find and replace `frontendboilerplate` to `yourappname` in `./`
 - `$ npm install`
 - `$ npm install -g gulp`
 - `$ gem install sass`
