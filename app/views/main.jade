@@ -8,15 +8,11 @@ div(ng-controller="MainController")
       li(ng-repeat="laser in lasers track by $index")
         a(href='#', ng-click="setLaser(laser)") {{laser.name}}
   br
-  button.btn-warning(ng-class="{disabled: selectedLaser}", ng-click="startLaserDemo()") Play demo
-  button.btn-danger(ng-click="stopLaserDemo()") Stop output
+  button.btn-warning(ng-click='startLaserDemo()') Play demo
+  button.btn-danger(ng-click='stopDemo()') Stop output
   br
   h2 Calibration
   #laserDemo
   br
-  button.btn-warning(ng-class="{disabled: selectedLaser}", ng-click="startCalibration()") Start Calibration
-  button.btn-danger(ng-click="stopCalibration()") Stop output
-
-
-  script(src='./scripts/phaser.js')
-
+  button.btn-warning(ng-click='startCalibration()') Start Calibration
+  button.btn-danger(ng-click='stopCalibration()') Stop output

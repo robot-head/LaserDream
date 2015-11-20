@@ -13,15 +13,16 @@ function MainController($scope, etherdream) {
     $scope.selectedLaser = laser;
   };
 
+  $scope.stopDemo = function () {
+    $scope.runningDemo = false;
+  };
+
   $scope.startLaserDemo = function () {
-    $scope.stopDemo = false;
+    $scope.runningDemo = true;
     etherdream.etherdream.connect($scope.selectedLaser.ip, $scope.selectedLaser.port, testPattern);
-
   };
 
-  $scope.stopLaserDemo = function () {
-    $scope.stopDemo = true;
-  };
+
 
   var testPattern = function (conn) {
     var CIRCLE_POINTS = 100;
@@ -58,7 +59,7 @@ function MainController($scope, etherdream) {
         i += 0.1;
         phase += 0.1 / 3250.0;
       }
-      if ($scope.stopDemo == true) {
+      if (!$scope.runningDemo) {
         return;
       }
       callback(framedata);
@@ -79,7 +80,7 @@ function MainController($scope, etherdream) {
     var calibrationGroup = game.add.group();
     $scope.calibrationGroup = calibrationGroup;
     bounds = new Phaser.Rectangle(10, 10, game.width - 20, game.height - 20);
-    targetTL = game.add.sprite(10, 10, 'target')
+    targetTL = game.add.sprite(10, 10, 'target');
 
     var targetWidth = targetTL.width;
     var targetHeight = targetTL.height;
@@ -152,6 +153,12 @@ function MainController($scope, etherdream) {
       targetBL.y = sprite.y;
       targetTR.x = sprite.x;
     }
+    $scope.selectedLaser.calibrationData = {
+      topLeft: 0,
+      topRight: 0,
+      bottomLeft: 0,
+      bottomRight: 0
+    }
   }
 
   $scope.startCalibration = function () {
@@ -160,7 +167,7 @@ function MainController($scope, etherdream) {
 
   };
 
-  $scope.stopLaserDemo = function () {
+  $scope.stopCalibration = function () {
     $scope.calibrating = false;
   };
 
@@ -296,7 +303,7 @@ function MainController($scope, etherdream) {
         }
       });
 
-      if ($scope.calibrating != true) {
+      if (!$scope.calibrating) {
         return;
       }
       callback(framedata);

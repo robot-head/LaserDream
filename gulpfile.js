@@ -25,6 +25,12 @@ gulp.task('webpack:vendor', function() {
       output: {
         filename: 'vendor.js'
       },
+      module: {
+        loaders: [
+          { test: /pixi.js/, loader: "script" },
+          { test: /phaser.js/, loader: "script" }
+        ]
+      },
       target: 'node-webkit'
     }))
     .pipe(gulp.dest(TMP_DIR + 'scripts/'))
