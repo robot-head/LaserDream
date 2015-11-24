@@ -10,6 +10,8 @@ Eventual feature goals:
 - Live 3D preview of stage
 - Multiple laser support
 
+We're currently developing user stories and mocks for the UX of the app.  View and contribute here: https://github.com/robot-head/LaserDream/wiki/User-Stories
+
 ### Package
 
 - Uses nw.js, AngularJS, Gulp, Jade, Sass (with sourcemaps), browserSync, and Phaser
