@@ -50,7 +50,7 @@
     "babel-loader": "^5.3.2",
     "babel-plugin-react-transform": "^1.1.1",
     "chai": "^3.3.0",
-    "chromedriver": "^2.19.0",
+    "chromedriver": "^119.0.1",
     "co-mocha": "^1.1.2",
     "css-loader": "^0.22.0",
     "css-modules-require-hook": "^2.0.2",
